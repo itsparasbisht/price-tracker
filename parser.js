@@ -1,22 +1,27 @@
-const className = "a-price-whole";
-const url =
-  "https://www.amazon.in/SanDisk-Portable-Smartphone-Compatible-Warranty/dp/B08GTYFC37";
+const puppeteer = require("puppeteer");
 
-const nightmare = require("nightmare");
+async function scrapPrice() {
+  const URL =
+    "https://www.amazon.in/SanDisk-Portable-Smartphone-Compatible-Warranty/dp/B08GTYFC37/";
 
-async function checkPrice() {
-  const priceString = await nightmare
-    .goto(url)
-    .wait("a-price-whole")
-    .evaluate(() => document.querySelector(className).innerText)
-    .end();
+  try {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.goto(URL);
 
-  const priceNumber = parseInt(priceString);
-  console.log(priceNumber);
+    let data = await page.evaluate(() => {
+      let item = document.querySelector(".a-price-whole");
+      return item.innerText.replace(/[.,]/g, "");
+    });
+    await browser.close();
 
-  if (priceNumber < 1500) {
-    console.log("it is cheap");
-  } else {
-    console.log("it is expensive");
+    return parseInt(data);
+  } catch (error) {
+    console.error(error);
   }
 }
+
+const price = scrapPrice();
+price.then((data) => {
+  console.log(data);
+});
