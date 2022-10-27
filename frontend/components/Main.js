@@ -12,8 +12,13 @@ function Home() {
       </nav>
 
       <form className={styles.getItemForm}>
-        <input type="url" name="url" id="url" />
-        <button type="button">get item</button>
+        <input
+          type="url"
+          name="url"
+          id="url"
+          placeholder="paste your product url here..."
+        />
+        <button type="button">Get Item</button>
       </form>
     </div>
   );
