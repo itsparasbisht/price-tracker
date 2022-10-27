@@ -18,6 +18,16 @@ function Item() {
         <p>
           Current Price: <span>Rs 80,000</span>
         </p>
+        <h5>Select price to get notified:</h5>
+        <input
+          type="number"
+          name="select-price"
+          id=""
+          max={80000}
+          min={10}
+          //   value={80000}
+          className={styles.selectPrice}
+        />
       </div>
     </div>
   );
