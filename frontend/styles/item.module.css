@@ -1,0 +1,33 @@
+.container {
+    padding: 40px;
+    width: 90%;
+    margin: 0px auto;
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    border: 4px solid black;
+}
+
+.itemImage {
+    width: 300px;
+}
+
+.itemDetails {
+    padding: 20px;
+}
+
+.itemDetails h2 {
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+
+.itemDetails p {
+    margin-top: 15px;
+    background-color: #F3A847;
+    width: fit-content;
+    padding: 7px 10px;
+}
+
+.itemDetails span {
+    font-weight: 600;
+}
