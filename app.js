@@ -1,4 +1,5 @@
 const express = require("express");
+const scrapItem = require("./scrapItem");
 const app = express();
 
 const PORT = 5000 || process.env.PORT;
@@ -20,10 +21,15 @@ app.get("/", (req, res) => {
   res.json({ message: "initial route to amazon price tracker" });
 });
 
-app.post("/get-item", (req, res) => {
+app.post("/get-item", async (req, res) => {
   const { itemUrl } = req.body;
   console.log(itemUrl);
   if (itemUrl) {
+    const data = await scrapItem(itemUrl);
+    console.log(">>>>>>>>>", data);
+    if (data) {
+      res.json({ message: "success" });
+    }
   }
 
   res.json({ message: "provide product url from amazon in your request body" });
