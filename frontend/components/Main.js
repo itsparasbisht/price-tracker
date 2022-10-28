@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../styles/main.module.css";
 import Image from "next/image";
 import rupeeIcon from "../assets/rupee-indian.png";
 import axios from "axios";
 
 function Home() {
+  const [itemUrl, setItemUrl] = useState("");
+  console.log(itemUrl);
+
   const getItem = async () => {
     try {
-      const data = await axios.get("http://localhost:5000/");
-      console.log(data);
+      const payload = { itemUrl };
+      const response = await axios.post(
+        "http://localhost:5000/get-item",
+        payload
+      );
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -27,6 +34,7 @@ function Home() {
           name="url"
           id="url"
           placeholder="paste your product url here..."
+          onChange={(e) => setItemUrl(e.target.value)}
         />
         <button type="button" onClick={getItem}>
           Get Item
