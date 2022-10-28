@@ -1,8 +1,7 @@
 const puppeteer = require("puppeteer");
 
-async function scrapPrice() {
-  const URL =
-    "https://www.amazon.in/JOISCOPE-Multi-Purpose-Adjustable-Portable-Assemble/dp/B0B9K6L3SR/ref=sr_1_16?crid=21YIVHWM16G9J&keywords=table&qid=1666793572&qu=eyJxc2MiOiI3Ljg4IiwicXNhIjoiNy41NiIsInFzcCI6IjYuNTgifQ%3D%3D&sprefix=table%2Caps%2C585&sr=8-16";
+async function scrapItem(itemUrl) {
+  const URL = itemUrl;
 
   try {
     const browser = await puppeteer.launch();
@@ -39,7 +38,4 @@ async function scrapPrice() {
   }
 }
 
-const data = scrapPrice();
-data.then((data) => {
-  console.log(data);
-});
+module.exports = scrapItem;
