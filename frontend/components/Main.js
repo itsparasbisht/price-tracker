@@ -4,6 +4,8 @@ import Image from "next/image";
 import rupeeIcon from "../assets/rupee-indian.png";
 import axios from "axios";
 import Item from "./Item";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Home() {
   const [itemUrl, setItemUrl] = useState("");
@@ -15,12 +17,38 @@ function Home() {
     try {
       const payload = { itemUrl };
       const response = await axios.post(
-        "http://localhost:5000/get-item",
+        "http://localhost:5000/ge-item",
         payload
       );
-      setItemData(response.data.item);
+
+      if (response.data?.item) {
+        setItemData(response.data.item);
+      } else {
+        toast.error("Failed to get the item", {
+          toastId: "failed-scrap",
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      }
     } catch (error) {
       console.log(error);
+      toast.error("Something went wrong", {
+        toastId: "failed-scrap",
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     } finally {
       setScrapping(false);
     }
@@ -47,6 +75,7 @@ function Home() {
         </button>
       </form>
       <Item data={itemData} />
+      <ToastContainer />
     </div>
   );
 }
