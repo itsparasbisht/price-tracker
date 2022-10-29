@@ -21,18 +21,26 @@ app.get("/", (req, res) => {
   res.json({ message: "initial route to amazon price tracker" });
 });
 
-app.post("/get-item", async (req, res) => {
+app.post("/get-item", (req, res) => {
   const { itemUrl } = req.body;
-  console.log(itemUrl);
-  if (itemUrl) {
-    const data = await scrapItem(itemUrl);
-    console.log(">>>>>>>>>", data);
-    if (data) {
-      res.json({ message: "success" });
-    }
-  }
 
-  res.json({ message: "provide product url from amazon in your request body" });
+  if (itemUrl) {
+    const data = scrapItem(itemUrl);
+    console.log("DATA --->", data);
+    data
+      .then((response) => {
+        console.log(">>>", response);
+        res.json({ item: response });
+      })
+      .catch((error) => {
+        console.log("---", error);
+        res.json({ error: "failed" });
+      });
+  } else {
+    res.json({
+      message: "provide product url from amazon in your request body",
+    });
+  }
 });
 
 app.listen(PORT, () => {
