@@ -12,43 +12,35 @@ function Home() {
   const [scrapping, setScrapping] = useState(false);
   const [itemData, setItemData] = useState(null);
 
+  const toastOptions = {
+    toastId: "failed-scrap",
+    position: "bottom-right",
+    autoClose: 5000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: true,
+    progress: undefined,
+    theme: "dark",
+  };
+
   const getItem = async () => {
     setScrapping(true);
     try {
       const payload = { itemUrl };
       const response = await axios.post(
-        "http://localhost:5000/ge-item",
+        "http://localhost:5000/get-item",
         payload
       );
 
       if (response.data?.item) {
         setItemData(response.data.item);
       } else {
-        toast.error("Failed to get the item", {
-          toastId: "failed-scrap",
-          position: "bottom-right",
-          autoClose: 5000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
+        toast.error("Failed to get the item", toastOptions);
       }
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong", {
-        toastId: "failed-scrap",
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      toast.error("Something went wrong", toastOptions);
     } finally {
       setScrapping(false);
     }
