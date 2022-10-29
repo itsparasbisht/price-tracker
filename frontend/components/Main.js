@@ -3,10 +3,11 @@ import styles from "../styles/main.module.css";
 import Image from "next/image";
 import rupeeIcon from "../assets/rupee-indian.png";
 import axios from "axios";
+import Item from "./Item";
 
 function Home() {
   const [itemUrl, setItemUrl] = useState("");
-  console.log(itemUrl);
+  const [itemData, setItemData] = useState(null);
 
   const getItem = async () => {
     try {
@@ -15,7 +16,7 @@ function Home() {
         "http://localhost:5000/get-item",
         payload
       );
-      console.log(response);
+      setItemData(response.data.item);
     } catch (error) {
       console.log(error);
     }
@@ -40,6 +41,7 @@ function Home() {
           Get Item
         </button>
       </form>
+      <Item data={itemData} />
     </div>
   );
 }
