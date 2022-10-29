@@ -7,9 +7,11 @@ import Item from "./Item";
 
 function Home() {
   const [itemUrl, setItemUrl] = useState("");
+  const [scrapping, setScrapping] = useState(false);
   const [itemData, setItemData] = useState(null);
 
   const getItem = async () => {
+    setScrapping(true);
     try {
       const payload = { itemUrl };
       const response = await axios.post(
@@ -19,6 +21,8 @@ function Home() {
       setItemData(response.data.item);
     } catch (error) {
       console.log(error);
+    } finally {
+      setScrapping(false);
     }
   };
 
@@ -37,8 +41,9 @@ function Home() {
           placeholder="paste your product url here..."
           onChange={(e) => setItemUrl(e.target.value)}
         />
-        <button type="button" onClick={getItem}>
+        <button type="button" onClick={getItem} disabled={scrapping}>
           Get Item
+          {scrapping && <span className={styles.loader}></span>}
         </button>
       </form>
       <Item data={itemData} />
