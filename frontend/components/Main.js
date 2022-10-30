@@ -8,22 +8,22 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Subscribe from "./Subscribe";
 
+const toastOptions = {
+  toastId: "failed-scrap",
+  position: "bottom-right",
+  autoClose: 5000,
+  hideProgressBar: true,
+  closeOnClick: true,
+  pauseOnHover: false,
+  draggable: true,
+  progress: undefined,
+  theme: "dark",
+};
+
 function Home() {
   const [itemUrl, setItemUrl] = useState("");
   const [scrapping, setScrapping] = useState(false);
   const [itemData, setItemData] = useState(null);
-
-  const toastOptions = {
-    toastId: "failed-scrap",
-    position: "bottom-right",
-    autoClose: 5000,
-    hideProgressBar: true,
-    closeOnClick: true,
-    pauseOnHover: false,
-    draggable: true,
-    progress: undefined,
-    theme: "dark",
-  };
 
   const getItem = async () => {
     setScrapping(true);
@@ -68,7 +68,7 @@ function Home() {
         </button>
       </form>
       <Item data={itemData} />
-      <Subscribe />
+      {itemData && <Subscribe />}
       <ToastContainer />
     </div>
   );
