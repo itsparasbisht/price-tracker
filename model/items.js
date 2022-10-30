@@ -8,7 +8,7 @@ const Items = new Schema({
   priceSelected: Number,
   email: String,
   active: Boolean,
-  timestamp: Date.now(),
+  timestamp: Date,
 });
 
-mongoose.model("Items", Items);
+module.exports = mongoose.model("Items", Items);
