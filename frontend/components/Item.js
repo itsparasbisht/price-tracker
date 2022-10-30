@@ -4,10 +4,12 @@ import styles from "../styles/item.module.css";
 function Item({ data }) {
   console.log(">>>", data);
   const [itemFound, setItemFound] = useState(false);
+  const [selectedPrice, setSelectedPrice] = useState(0);
 
   useEffect(() => {
     if (data?.price) {
       setItemFound(true);
+      setSelectedPrice(data.price);
     }
   }, [data]);
 
@@ -25,9 +27,10 @@ function Item({ data }) {
             type="number"
             name="select-price"
             id=""
-            max={80000}
+            max={data.price}
             min={10}
-            //   value={80000}
+            value={selectedPrice}
+            onChange={(e) => setSelectedPrice(e.target.value)}
             className={styles.selectPrice}
           />
         </div>

@@ -6,6 +6,7 @@ import axios from "axios";
 import Item from "./Item";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Subscribe from "./Subscribe";
 
 function Home() {
   const [itemUrl, setItemUrl] = useState("");
@@ -67,6 +68,7 @@ function Home() {
         </button>
       </form>
       <Item data={itemData} />
+      <Subscribe />
       <ToastContainer />
     </div>
   );
