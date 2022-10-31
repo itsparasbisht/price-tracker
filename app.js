@@ -50,10 +50,10 @@ app.post("/notify", (req, res) => {
 
   const newItem = new Item({
     product: data.title,
-    productUrl: data.url,
-    imageUrl: data.imageUrl,
+    productUrl: data.productUrl,
+    imageUrl: data.image,
     price: data.price,
-    priceSelected: data.priceSelected,
+    priceSelected: data.selectedPrice,
     email: data.email,
   });
 

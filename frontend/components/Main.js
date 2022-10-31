@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../styles/main.module.css";
 import Image from "next/image";
 import rupeeIcon from "../assets/rupee-indian.png";
@@ -25,6 +25,12 @@ function Home() {
   const [scrapping, setScrapping] = useState(false);
   const [itemData, setItemData] = useState(null);
   const [userPrice, setUserPrice] = useState(0);
+
+  useEffect(() => {
+    if (itemData?.price) {
+      setUserPrice(itemData.price);
+    }
+  }, [itemData]);
 
   const getItem = async () => {
     setScrapping(true);

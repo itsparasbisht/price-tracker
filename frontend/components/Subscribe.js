@@ -26,18 +26,45 @@ function Subscribe({ data }) {
     if (!isValidEmail) {
       toast.error("Please enter a valid email", toastOptions);
     } else {
-      const payload = {
-        ...data,
-        email,
-      };
+      const analyzeResponse = analyzePrice();
 
-      console.log("payload:", payload);
-      try {
-        axios.post("http://localhost:5000/notify", payload);
-      } catch (error) {
-        console.log(error);
-        toast.error("Something went wrong", toastOptions);
+      if (analyzeResponse === "proceed") {
+        const payload = {
+          ...data,
+          email,
+        };
+
+        console.log("payload:", payload);
+        try {
+          // axios.post("http://localhost:5000/notify", payload);
+        } catch (error) {
+          console.log(error);
+          toast.error("Something went wrong", {
+            ...toastOptions,
+            autoClose: 10000,
+            toastId: "too-high",
+          });
+        }
+      } else {
+        toast.warn(analyzeResponse, {
+          ...toastOptions,
+          autoClose: 10000,
+          toastId: "too-low",
+        });
       }
+    }
+  };
+
+  const analyzePrice = () => {
+    const price = data.price;
+    const userPrice = data.selectedPrice;
+
+    if (userPrice >= price) {
+      return "Select price lower than current price";
+    } else if (userPrice < price / 2) {
+      return "Selected price is too low, we suggest you to select a reasonable price.";
+    } else {
+      return "proceed";
     }
   };
 
