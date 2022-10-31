@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "../styles/subscribe.module.css";
 import * as EmailValidator from "email-validator";
 import { ToastContainer, toast } from "react-toastify";
+import axios from "axios";
 
 const toastOptions = {
   toastId: "invalid-email",
@@ -15,13 +16,28 @@ const toastOptions = {
   theme: "dark",
 };
 
-function Subscribe() {
+function Subscribe({ data }) {
   const [email, setEmail] = useState("");
 
-  const doNotify = () => {
+  console.log("data:", data);
+
+  const doNotify = async () => {
     const isValidEmail = EmailValidator.validate(email);
     if (!isValidEmail) {
       toast.error("Please enter a valid email", toastOptions);
+    } else {
+      const payload = {
+        ...data,
+        email,
+      };
+
+      console.log("payload:", payload);
+      try {
+        axios.post("http://localhost:5000/notify", payload);
+      } catch (error) {
+        console.log(error);
+        toast.error("Something went wrong", toastOptions);
+      }
     }
   };
 

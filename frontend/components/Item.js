@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "../styles/item.module.css";
 
-function Item({ data }) {
-  console.log(">>>", data);
+function Item({ data, userPriceSetter }) {
   const [itemFound, setItemFound] = useState(false);
   const [selectedPrice, setSelectedPrice] = useState(0);
 
@@ -30,7 +29,10 @@ function Item({ data }) {
             max={data.price}
             min={10}
             value={selectedPrice}
-            onChange={(e) => setSelectedPrice(e.target.value)}
+            onChange={(e) => {
+              setSelectedPrice(e.target.value);
+              userPriceSetter(e.target.value);
+            }}
             className={styles.selectPrice}
           />
         </div>

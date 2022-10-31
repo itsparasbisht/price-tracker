@@ -1,6 +1,7 @@
 const express = require("express");
 const scrapItem = require("./scrapItem");
 const app = express();
+const Item = require("./model/items.js");
 
 const PORT = 5000 || process.env.PORT;
 
@@ -41,6 +42,25 @@ app.post("/get-item", (req, res) => {
       message: "provide product url from amazon in your request body",
     });
   }
+});
+
+app.post("/notify", (req, res) => {
+  const data = req.body;
+  console.log(req.body);
+
+  const newItem = new Item({
+    product: data.title,
+    productUrl: data.url,
+    imageUrl: data.imageUrl,
+    price: data.price,
+    priceSelected: data.priceSelected,
+    email: data.email,
+  });
+
+  newItem.save((err, result) => {
+    console.log(err);
+    console.log(result);
+  });
 });
 
 app.listen(PORT, () => {

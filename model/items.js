@@ -1,13 +1,18 @@
 const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
+
 const Items = new Schema({
   product: String,
-  url: String,
+  productUrl: String,
+  imageUrl: String,
   price: Number,
   priceSelected: Number,
   email: String,
-  active: Boolean,
+  active: {
+    type: Boolean,
+    default: true,
+  },
   timestamp: Date,
 });
 

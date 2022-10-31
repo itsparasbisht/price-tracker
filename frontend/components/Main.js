@@ -24,6 +24,7 @@ function Home() {
   const [itemUrl, setItemUrl] = useState("");
   const [scrapping, setScrapping] = useState(false);
   const [itemData, setItemData] = useState(null);
+  const [userPrice, setUserPrice] = useState(0);
 
   const getItem = async () => {
     setScrapping(true);
@@ -67,8 +68,16 @@ function Home() {
           {scrapping && <span className={styles.loader}></span>}
         </button>
       </form>
-      <Item data={itemData} />
-      {itemData && <Subscribe />}
+      <Item data={itemData} userPriceSetter={setUserPrice} />
+      {itemData && (
+        <Subscribe
+          data={{
+            ...itemData,
+            productUrl: itemUrl,
+            selectedPrice: Number(userPrice),
+          }}
+        />
+      )}
       <ToastContainer />
     </div>
   );
