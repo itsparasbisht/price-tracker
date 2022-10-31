@@ -40,7 +40,21 @@ function Subscribe({ data }) {
 
         console.log("payload:", payload);
         try {
-          axios.post("http://localhost:5000/notify", payload);
+          const response = await axios.post(
+            "http://localhost:5000/notify",
+            payload
+          );
+          if (response) {
+            toast.success(
+              `Successfully Done, we will notify you through mail whenever the price drops to Rs ${response.data.item.priceSelected}`,
+              {
+                ...toastOptions,
+                autoClose: 10000,
+                toastId: "notify-success",
+                position: "bottom-left",
+              }
+            );
+          }
         } catch (error) {
           console.log(error);
           toast.error("Something went wrong", {
@@ -48,6 +62,8 @@ function Subscribe({ data }) {
             autoClose: 10000,
             toastId: "notify-error",
           });
+        } finally {
+          setProcessing(false);
         }
       } else {
         toast.warn(analyzeResponse, {
@@ -84,7 +100,7 @@ function Subscribe({ data }) {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="enter your email..."
         />
-        <button onClick={doNotify}>
+        <button onClick={doNotify} disabled={processing}>
           Notify
           {processing && <span className={styles.loader}></span>}
         </button>

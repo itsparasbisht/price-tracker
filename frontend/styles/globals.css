@@ -14,6 +14,14 @@ body {
   max-width: 1500px;
 }
 
+.Toastify__toast div {
+  line-height: 20px;
+}
+
+.Toastify__toast--success {
+  width: 450px;
+}
+
 @media all and (max-width: 1080px) {
   html {
     font-size: 14px;

@@ -13,7 +13,10 @@ const Items = new Schema({
     type: Boolean,
     default: true,
   },
-  timestamp: Date,
+  timestamp: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 module.exports = mongoose.model("Items", Items);

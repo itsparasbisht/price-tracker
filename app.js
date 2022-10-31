@@ -2,10 +2,13 @@ const express = require("express");
 const scrapItem = require("./scrapItem");
 const app = express();
 const Item = require("./model/items.js");
+const dbConnect = require("./dbConnect");
 
 const PORT = 5000 || process.env.PORT;
 
 app.use(express.json());
+
+dbConnect();
 
 // CORS
 app.use(function (req, res, next) {
@@ -45,22 +48,31 @@ app.post("/get-item", (req, res) => {
 });
 
 app.post("/notify", (req, res) => {
-  const data = req.body;
-  console.log(req.body);
+  try {
+    const data = req.body;
+    console.log(data);
 
-  const newItem = new Item({
-    product: data.title,
-    productUrl: data.productUrl,
-    imageUrl: data.image,
-    price: data.price,
-    priceSelected: data.selectedPrice,
-    email: data.email,
-  });
+    const newItem = new Item({
+      product: data.title,
+      productUrl: data.productUrl,
+      imageUrl: data.image,
+      price: data.price,
+      priceSelected: data.selectedPrice,
+      email: data.email,
+    });
 
-  newItem.save((err, result) => {
+    newItem.save((err, result) => {
+      if (err) {
+        console.log(err);
+        res.status(500).json({ message: err.message });
+      } else {
+        res.status(201).json({ item: result });
+      }
+    });
+  } catch (error) {
     console.log(err);
-    console.log(result);
-  });
+    res.status(500).json({ message: error });
+  }
 });
 
 app.listen(PORT, () => {
