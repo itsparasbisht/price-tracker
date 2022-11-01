@@ -16,7 +16,7 @@ const toastOptions = {
   theme: "dark",
 };
 
-function Subscribe({ data }) {
+function Subscribe({ data, setData }) {
   const [email, setEmail] = useState("");
   const [processing, setProcessing] = useState(false);
 
@@ -54,6 +54,10 @@ function Subscribe({ data }) {
                 position: "bottom-left",
               }
             );
+
+            setTimeout(() => {
+              setData(null);
+            }, 3000);
           }
         } catch (error) {
           console.log(error);

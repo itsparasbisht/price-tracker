@@ -12,7 +12,7 @@ function Item({ data, userPriceSetter }) {
     }
   }, [data]);
 
-  if (itemFound) {
+  if (itemFound && data) {
     return (
       <div className={styles.container}>
         <img src={data.image} alt={data.title} className={styles.itemImage} />

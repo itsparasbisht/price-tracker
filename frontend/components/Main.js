@@ -69,7 +69,11 @@ function Home() {
           placeholder="paste your product url here..."
           onChange={(e) => setItemUrl(e.target.value)}
         />
-        <button type="button" onClick={getItem} disabled={scrapping}>
+        <button
+          type="button"
+          onClick={getItem}
+          disabled={scrapping || !itemUrl}
+        >
           Get Item
           {scrapping && <span className={styles.loader}></span>}
         </button>
@@ -82,6 +86,7 @@ function Home() {
             productUrl: itemUrl,
             selectedPrice: Number(userPrice),
           }}
+          setData={setItemData}
         />
       )}
       <ToastContainer />
