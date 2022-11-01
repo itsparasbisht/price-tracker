@@ -80,7 +80,9 @@ function Subscribe({ data }) {
     const price = data.price;
     const userPrice = data.selectedPrice;
 
-    if (userPrice >= price) {
+    if (userPrice === NaN || userPrice === 0) {
+      return "Enter a valid amount";
+    } else if (userPrice >= price) {
       return "Select price lower than current price";
     } else if (userPrice < price / 2) {
       return "Selected price is too low, we suggest you to select a reasonable price.";
