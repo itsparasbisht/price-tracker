@@ -1,8 +1,8 @@
 const express = require("express");
-const scrapItem = require("./scrapItem");
+const scrapItem = require("./functions/scrapItem");
 const app = express();
 const Item = require("./model/items.js");
-const dbConnect = require("./dbConnect");
+const dbConnect = require("./db/dbConnect");
 
 const PORT = 5000 || process.env.PORT;
 
