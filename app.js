@@ -1,10 +1,11 @@
 const express = require("express");
-const scrapItem = require("./functions/scrapItem");
 const app = express();
-const Item = require("./model/items.js");
 const dbConnect = require("./db/dbConnect");
 
 const PORT = 5000 || process.env.PORT;
+
+const getItemRouter = require("./routes/getItem");
+const notifyRouter = require("./routes/notify");
 
 app.use(express.json());
 
@@ -25,55 +26,8 @@ app.get("/", (req, res) => {
   res.json({ message: "initial route to amazon price tracker" });
 });
 
-app.post("/get-item", (req, res) => {
-  const { itemUrl } = req.body;
-
-  if (itemUrl) {
-    const data = scrapItem(itemUrl);
-    console.log("DATA --->", data);
-    data
-      .then((response) => {
-        console.log(">>>", response);
-        res.json({ item: response });
-      })
-      .catch((error) => {
-        console.log("---", error);
-        res.json({ error: "failed" });
-      });
-  } else {
-    res.json({
-      message: "provide product url from amazon in your request body",
-    });
-  }
-});
-
-app.post("/notify", (req, res) => {
-  try {
-    const data = req.body;
-    console.log(data);
-
-    const newItem = new Item({
-      product: data.title,
-      productUrl: data.productUrl,
-      imageUrl: data.image,
-      price: data.price,
-      priceSelected: data.selectedPrice,
-      email: data.email,
-    });
-
-    newItem.save((err, result) => {
-      if (err) {
-        console.log(err);
-        res.status(500).json({ message: err.message });
-      } else {
-        res.status(201).json({ item: result });
-      }
-    });
-  } catch (error) {
-    console.log(err);
-    res.status(500).json({ message: error });
-  }
-});
+app.use("/get-item", getItemRouter);
+app.use("/notify", notifyRouter);
 
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
