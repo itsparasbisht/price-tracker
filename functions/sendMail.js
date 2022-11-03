@@ -16,7 +16,7 @@ const sendMail = async () => {
     from: "parash@sirpi.io",
     to: "parasbisht.web@gmail.com",
     subject: "Testing the dev",
-    html: "<dvi><b>Hello there...</b><br /> <img src='https://i.quotev.com/l7jmhx3sppoa.jpg' /></div>",
+    html: "<div><b>Hello there...</b><br /> <img src='https://i.quotev.com/l7jmhx3sppoa.jpg' /></div>",
   });
 
   if (info.messageId) {
