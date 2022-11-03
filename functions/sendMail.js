@@ -2,6 +2,9 @@ const nodemailer = require("nodemailer");
 require("dotenv").config();
 const appPass = process.env.GMAIL_PASSWORD;
 
+const fs = require("fs");
+const mailBody = fs.readFileSync(`${__dirname}/mailBody.html`).toString();
+
 let transporter = nodemailer.createTransport({
   service: "gmail",
   host: "smtp.gmail.com",
@@ -15,8 +18,8 @@ const sendMail = async () => {
   let info = await transporter.sendMail({
     from: "parash@sirpi.io",
     to: "parasbisht.web@gmail.com",
-    subject: "Testing the dev",
-    html: "<div><b>Hello there...</b><br /> <img src='https://i.quotev.com/l7jmhx3sppoa.jpg' /></div>",
+    subject: "Price Update: Amazon Price Tracker",
+    html: mailBody,
   });
 
   if (info.messageId) {
