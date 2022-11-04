@@ -2,9 +2,6 @@ const nodemailer = require("nodemailer");
 require("dotenv").config();
 const appPass = process.env.GMAIL_PASSWORD;
 
-const fs = require("fs");
-const mailBody = fs.readFileSync(`${__dirname}/mailBody.html`).toString();
-
 const title =
   "CHROES® Men's Fall Winter Office Single Breasted Long Dress Wool Coat Overcoat";
 const imageUrl = "https://m.media-amazon.com/images/I/41ZvSZbAKRL._UL1001_.jpg";
