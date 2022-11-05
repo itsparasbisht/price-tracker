@@ -22,8 +22,6 @@ function computeAndMail(items, currentPrice) {
     }
   });
 
-  console.log(itemUpdated);
-
   itemUpdated.forEach((item) => {
     if (item.currentPrice <= item.priceSelected) {
       mailWithData(item);
