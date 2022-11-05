@@ -14,6 +14,8 @@ const dbConnect = () => {
   mongoURI = `mongodb+srv://paras:${password}@cluster0.grwj2ys.mongodb.net/?retryWrites=true&w=majority`;
 
   mongoose.connect(mongoURI);
+
+  return true;
 };
 
 module.exports = dbConnect;

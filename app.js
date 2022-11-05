@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const dbConnect = require("./db/dbConnect");
+const Items = require("./model/items");
 
 const PORT = 5000 || process.env.PORT;
 
@@ -28,6 +29,17 @@ app.get("/", (req, res) => {
 
 app.use("/get-item", getItemRouter);
 app.use("/notify", notifyRouter);
+
+app.get("/list", (req, res) => {
+  Items.find({ active: true }, (err, data) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(data);
+      res.json(data);
+    }
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
