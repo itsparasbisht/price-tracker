@@ -1,13 +1,14 @@
 const nodemailer = require("nodemailer");
 require("dotenv").config();
+const mailBody = require("./mailBody");
 
 const appPass = process.env.GMAIL_PASSWORD;
 
 function mailWithData(data) {
-  const mailContent = mailTemplate(
-    data.product,
+  const mailContent = mailBody(
+    data.title,
     data.imageUrl,
-    data.price,
+    data.currentPrice,
     data.productUrl
   );
 

@@ -1,3 +1,5 @@
+const mailWithData = require("./mailWithData");
+
 function computeAndMail(items, currentPrice) {
   const itemUpdated = [];
 
@@ -7,7 +9,12 @@ function computeAndMail(items, currentPrice) {
     for (let i = 0; i < currentPrice.length; i++) {
       if (currentPrice[i].id === itemId) {
         itemUpdated.push({
-          ...item,
+          id: itemId,
+          title: item.product,
+          productUrl: item.productUrl,
+          imageUrl: item.imageUrl,
+          oldPrice: item.price,
+          priceSelected: item.priceSelected,
           currentPrice: currentPrice[i].currentPrice,
         });
         break;
@@ -16,6 +23,14 @@ function computeAndMail(items, currentPrice) {
   });
 
   console.log(itemUpdated);
+
+  itemUpdated.forEach((item) => {
+    if (item.currentPrice <= item.priceSelected) {
+      mailWithData(item);
+    } else {
+      console.log(`${item.id} -------- NOT YET`);
+    }
+  });
 }
 
 module.exports = computeAndMail;
