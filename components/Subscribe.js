@@ -4,6 +4,7 @@ import * as EmailValidator from "email-validator";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import config from "../config/config";
 
 const toastOptions = {
   position: "bottom-right",
@@ -40,10 +41,7 @@ function Subscribe({ data, setData }) {
 
         console.log("payload:", payload);
         try {
-          const response = await axios.post(
-            "http://localhost:5000/notify",
-            payload
-          );
+          const response = await axios.post(`${config.apiUrl}/notify`, payload);
           if (response) {
             toast.success(
               `Successfully Done, we will notify you through mail whenever the price drops to Rs ${response.data.item.priceSelected}`,

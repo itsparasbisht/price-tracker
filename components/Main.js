@@ -7,6 +7,7 @@ import Item from "./Item";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Subscribe from "./Subscribe";
+import config from "../config/config";
 
 const toastOptions = {
   toastId: "failed-scrap",
@@ -36,10 +37,7 @@ function Home() {
     setScrapping(true);
     try {
       const payload = { itemUrl };
-      const response = await axios.post(
-        "http://localhost:5000/get-item",
-        payload
-      );
+      const response = await axios.post(`${config.apiUrl}/get-item`, payload);
 
       if (response.data?.item) {
         setItemData(response.data.item);
