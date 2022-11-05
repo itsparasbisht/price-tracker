@@ -21,6 +21,9 @@ if (connected) {
         };
       });
       const data = scrapPrice(urls);
+      data.then((res) => {
+        console.log(res);
+      });
     }
   });
 }
