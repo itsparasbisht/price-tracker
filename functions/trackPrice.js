@@ -23,13 +23,20 @@ if (connected) {
         };
       });
 
-      const data = scrapPrice(urls);
-      data.then((res) => {
-        // console.log(res);
-        // computeAndMail(items, res);
-        console.log(items);
-        console.log(res);
-      });
+      //   const data = scrapPrice(urls);
+      //   data.then((res) => {
+      // console.log(res);
+      // computeAndMail(items, res);
+      //     console.log(items);
+      //     console.log(res);
+      //   });
+
+      const prices = [
+        { id: "63661c920be5404b869559e5", currentPrice: 56490 },
+        { id: "63661e34b2e6eef625ed8021", currentPrice: 8419 },
+        { id: "63661ecdb2e6eef625ed8023", currentPrice: 699 },
+      ];
+      computeAndMail(items, prices);
     }
   });
 }
