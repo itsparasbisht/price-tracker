@@ -5,7 +5,7 @@ const connected = dbConnect();
 
 const scrapPrice = require("./scrapPrice");
 
-const sendMail = require("./mailWithData");
+const computeAndMail = require("./computeAndMail");
 
 let items = [];
 
@@ -25,6 +25,9 @@ if (connected) {
 
       const data = scrapPrice(urls);
       data.then((res) => {
+        // console.log(res);
+        // computeAndMail(items, res);
+        console.log(items);
         console.log(res);
       });
     }
