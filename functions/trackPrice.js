@@ -5,6 +5,8 @@ const connected = dbConnect();
 
 const scrapPrice = require("./scrapPrice");
 
+const sendMail = require("./mailWithData");
+
 let items = [];
 
 if (connected) {
@@ -20,6 +22,7 @@ if (connected) {
           url: item.productUrl,
         };
       });
+
       const data = scrapPrice(urls);
       data.then((res) => {
         console.log(res);
