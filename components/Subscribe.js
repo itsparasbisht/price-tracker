@@ -44,7 +44,7 @@ function Subscribe({ data, setData }) {
           const response = await axios.post(`${config.apiUrl}/notify`, payload);
           if (response) {
             toast.success(
-              `Successfully Done, we will notify you through mail whenever the price drops to Rs ${response.data.item.priceSelected}`,
+              `Successfully Done, please check your email for more details.`,
               {
                 ...toastOptions,
                 autoClose: 10000,
