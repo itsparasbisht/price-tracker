@@ -34,6 +34,11 @@ function Home() {
   }, [itemData]);
 
   const getItem = async () => {
+    toast.warn("Fetching your item, please wait...", {
+      ...toastOptions,
+      autoClose: 10000,
+    });
+
     const waitingCheck = setTimeout(() => {
       takingTime();
     }, 20000);
@@ -59,7 +64,7 @@ function Home() {
   };
 
   const takingTime = () => {
-    toast.warn("Fetching your item, please wait...", {
+    toast.warn("Taking some time to fetch, please wait...", {
       ...toastOptions,
       autoClose: 10000,
     });
