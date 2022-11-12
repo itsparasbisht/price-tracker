@@ -34,6 +34,10 @@ function Home() {
   }, [itemData]);
 
   const getItem = async () => {
+    const waitingCheck = setTimeout(() => {
+      takingTime();
+    }, 20000);
+
     setScrapping(true);
     try {
       const payload = { itemUrl };
@@ -41,8 +45,10 @@ function Home() {
 
       if (response.data?.item) {
         setItemData(response.data.item);
+        clearTimeout(waitingCheck);
       } else {
         toast.error("Failed to get the item", toastOptions);
+        clearTimeout(waitingCheck);
       }
     } catch (error) {
       console.log(error);
@@ -50,6 +56,13 @@ function Home() {
     } finally {
       setScrapping(false);
     }
+  };
+
+  const takingTime = () => {
+    toast.warn("Fetching your item, please wait...", {
+      ...toastOptions,
+      autoClose: 10000,
+    });
   };
 
   return (
