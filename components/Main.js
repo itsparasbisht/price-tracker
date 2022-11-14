@@ -39,7 +39,7 @@ function Home() {
       autoClose: 10000,
     });
 
-    const waitingCheck = setTimeout(() => {
+    const waitingCheck = setInterval(() => {
       takingTime();
     }, 20000);
 
@@ -50,10 +50,10 @@ function Home() {
 
       if (response.data?.item) {
         setItemData(response.data.item);
-        clearTimeout(waitingCheck);
+        clearInterval(waitingCheck);
       } else {
         toast.error("Failed to get the item", toastOptions);
-        clearTimeout(waitingCheck);
+        clearInterval(waitingCheck);
       }
     } catch (error) {
       console.log(error);
